@@ -1,0 +1,42 @@
+version: "3"
+services:
+  app:
+    user: "${UID}:${GID}"
+    build:
+       context: .
+    image: admin-front-end
+    working_dir: /app
+    command:
+      - "yarn"
+      - "start"
+    env_file:
+      - .env
+    ports:
+      - "3000:3000"
+    networks:
+      - default
+    restart: unless-stopped
+    depends_on:
+      - apache
+
+  apache:
+    user: "${UID}:${GID}"
+    image: httpd:latest
+    tty: true
+    working_dir: /usr/local/apache2
+    networks:
+      - default
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/letsencrypt/live/admin.talents2germany.de:/etc/letsencrypt/live/admin.talents2germany.de:ro
+      - /etc/letsencrypt/archive/admin.talents2germany.de:/etc/letsencrypt/archive/admin.talents2germany.de:ro
+      - ./apache/conf:/usr/local/apache2/conf
+      - ./apache/htdocs:/usr/local/apache2/htdocs
+      - ./apache/ssl:/usr/local/apache2/ssl
+      - ./apache/logs:/usr/local/apache2/logs
+    command: /bin/sh -c "mkdir -p /usr/local/apache2/logs && tail -f /dev/null"
+networks:
+  default:
+    driver: bridge

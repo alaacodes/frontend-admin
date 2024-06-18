@@ -1,0 +1,15 @@
+[0;1;32m●[0m apache2.service - The Apache HTTP Server
+     Loaded: loaded (/lib/systemd/system/apache2.service; enabled; vendor preset: enabled)
+     Active: [0;1;32mactive (running)[0m since Tue 2024-06-04 14:02:51 UTC; 21s ago
+       Docs: https://httpd.apache.org/docs/2.4/
+   Main PID: 159847 (apache2)
+      Tasks: 55 (limit: 9508)
+     Memory: 6.2M
+     CGroup: /system.slice/apache2.service
+             ├─159847 /usr/sbin/apache2 -k start
+             ├─159852 /usr/sbin/apache2 -k start
+             └─159853 /usr/sbin/apache2 -k start
+
+Jun 04 14:02:51 admin-services systemd[1]: Starting The Apache HTTP Server...
+Jun 04 14:02:51 admin-services apachectl[159833]: AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 127.0.1.1. Set the 'ServerName' directive globally to suppress this message
+Jun 04 14:02:51 admin-services systemd[1]: Started The Apache HTTP Server.
